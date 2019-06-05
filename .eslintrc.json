@@ -5,7 +5,17 @@
             "error",
             4
         ],
-    "linebreak-style": [2, "windows"],
-    "eol-last": 0
-    }
+        "linebreak-style": [2, "windows"],
+        "eol-last": 0,
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "react"
+    ]
 }
