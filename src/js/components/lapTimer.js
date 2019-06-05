@@ -2,10 +2,12 @@ import React from 'react';
 import Button from './button';
 import Timer from './timer';
 
+import styles from '../../css/lap.css';
+
 export default class LapTimer extends Timer {
 
 startLapTime(){
-    
+
 }
 
 render(){
