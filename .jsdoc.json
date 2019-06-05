@@ -1,0 +1,34 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": [
+            "jsdoc"
+        ]
+    },
+    "source": {
+        "include": [
+            "README.md"
+        ],
+        "includePattern": ".js$"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "templates":{
+        "name": "Adaptive Stopwatch - Documentation",
+        "referenceTitle": "React Stopwatch",
+        "disableSort": false,
+        "collapse": true,
+        "ressources": {
+            "Github repo": "https://github.com/qiqi0725/reactiveStopwatch"
+        },
+        "footerText": "Adaptive Stopwatch - Documentation"
+    },
+    "opts": {
+        "destination": "./docs/",
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true,
+        "template": "./node_modules/jsdoc/templates/jsdoc-template"
+    }
+}
