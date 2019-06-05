@@ -1,0 +1,47 @@
+/*  BUTTONS  */
+
+.stopwatchButtons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60vw;
+    height: 20vh;
+}
+
+.stopwatchButtons>* {
+    border-radius: 50%;
+    height: 12vh;
+    width: 12vh;
+    border-width: 4px;
+    border-style: double;
+    background-color: #393c3f;
+    color: white;
+    font-size: 2.0vh;
+}
+
+#resume:active,
+#resume:hover,
+#lap:active,
+#lap:hover,
+#reset:active,
+#reset:hover {
+    background-color: #4f4f4f;
+}
+
+#start {
+    background-color: #15b222;
+}
+
+#start:active,
+#start:hover {
+    background-color: #32b53d;
+}
+
+#stop {
+    background-color: #ff2d2d;
+}
+
+#stop:active,
+#stop:hover {
+    background-color: #ff4747;
+}

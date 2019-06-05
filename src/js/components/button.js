@@ -1,8 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 
-import Timer from './timer';
-
 export default class Button extends React.Component {
     constructor(props) {
         super(props);

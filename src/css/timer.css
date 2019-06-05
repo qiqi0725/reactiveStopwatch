@@ -1,0 +1,10 @@
+/*  TIME  */
+
+#time {
+    display: flex;
+    font-size: 10vw;
+    width: 100vw;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
+}
