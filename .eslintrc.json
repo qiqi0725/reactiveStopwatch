@@ -4,6 +4,8 @@
         "indent": [
             "error",
             4
-        ]
+        ],
+    "linebreak-style": [2, "windows"],
+    "eol-last": 0
     }
 }
