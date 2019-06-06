@@ -33,6 +33,8 @@ export default class Timer extends React.Component {
             update: this.updateTime,
             reset: this.resetTime,
             resume: this.resumeTime,
+            startLapTime: this.startLapTime
+
         };
         this.state = {
             time: '00:00:00.00',
@@ -42,18 +44,7 @@ export default class Timer extends React.Component {
             lapCounter: 1,
             timer: null,
             lapTimer: null,
-<<<<<<< HEAD
-        };
-        this.functions = {
-            start: this.startTime,
-            stop: this.stopTime,
-            update: this.updateTime,
-            reset: this.resetTime,
-            resume: this.resumeTime,
-            startLapTime: this.startLapTime
-=======
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
->>>>>>> 55c3a37c531e3ccea212123d7e5dcbd24fe635cf
         };
         this.allLaps = [];
     }
@@ -89,14 +80,12 @@ export default class Timer extends React.Component {
     }
 
     // Updates time of ongoing lap timer
-    updateLapTime(newTime){
+    updateLapTime(newTime) {
         this.setState({
-            lapTime: millisecondsToString(newTime),
-            lapInitTime : newTime + this.state.lapInitTime,
-            lapCounter: this.lapCounter + 1
+            lapTime: millisecondsToString(newTime)
         })
 
-        this.allLaps.push({key: lapCounter, value: lapTime});
+
     }
 
     /**
@@ -112,7 +101,11 @@ export default class Timer extends React.Component {
                 this.updateTime(new Date() - this.state.initTime);
             }, 10),
             buttonManager: <ButtonManager scenario={1} functions={this.functions} />,
+            // lapTimer: setInterval(() => {
+            //     this.updateLapTime(new Date() - this.state.lapInitTime);
+            // }, 10)
         });
+
     }
 
     /**
@@ -122,18 +115,31 @@ export default class Timer extends React.Component {
      * @description Start lap interval
      */
     startLapTime() {
-
+        
         // clear previous lap timer
-        if (!this.lapTimer){
-            clearInterval(this.lapTimer);
+        if (this.state.lapCounter > 1) {
+            clearInterval(this.state.lapTimer);
+        }
+        else {
+            this.setState({
+                lapInitTime: this.state.startTime
+            })
         }
 
         // calculate time for latest lap
         this.setState({
             lapTimer: setInterval(() => {
                 this.updateLapTime(new Date() - this.state.lapInitTime);
-            })
+            }, 10),
+            lapInitTime: new Date(),
+            // lapCounter: this.state.lapCounter + 1
         })
+        this.allLaps.push({
+            id: this.state.lapCounter,
+            value: this.state.lapTime
+        });
+
+
     }
 
     /**
@@ -148,6 +154,7 @@ export default class Timer extends React.Component {
         clearInterval(this.state.lapTimer);
         this.setState({
             buttonManager: <ButtonManager scenario={2} functions={this.functions} />,
+            lapInitTime: new Date()
         });
     }
 
@@ -160,6 +167,7 @@ export default class Timer extends React.Component {
     resetTime() {
         // hide reset resume, show lap start
         clearInterval(this.state.timer);
+        clearInterval(this.state.lapTimer);
         this.setState({
             time: '00:00:00.00',
             lapTime: '00:00:00.00',
@@ -187,7 +195,7 @@ export default class Timer extends React.Component {
                 </div>
                 {this.state.buttonManager}
                 <div id='laps'>
-                    <LapManager allLaps={this.state.allLaps} prevLapTime={this.state.startLapTime} currLapTime={this.state.lapTime}></LapManager>
+                    <LapManager lapCounter={this.state.lapCounter} lapTime={this.state.lapTime}></LapManager>
                     {/* <div id={`lapBlock${this.state.lapCounter}`}>
                         <span id={`lap${this.state.lapCounter}`}>
                             {`Lap ${pad(this.state.lapCounter)}`}
