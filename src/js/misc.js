@@ -23,17 +23,4 @@ export function millisecondsToString(milli) {
     const minutes = parseInt((milli / (1000 * 60)) % 60);
     const hours = parseInt((milli / (1000 * 60 * 60)) % 24);
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(milliseconds)}`;
-<<<<<<< HEAD
-=======
-}
-/**
- * @param {Number} num 
- * Pad numbers smaller than 10
- */
-export function pad(num) {
-    if (!num && num !== 0) {
-        return null;
-    }
-    return num >= 10 ? num : `0${num}`;
->>>>>>> 262f31e4007c3f594d722b649f5d4243c6b93043
 }

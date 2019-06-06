@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable max-len */
 import React from 'react';
 
 import '../../css/button.css';
@@ -20,17 +23,17 @@ export default class Button extends React.Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log(`Button ${this.state.name} has been mounted`);
     }
 
-    componentDidCatch(){
+    componentDidCatch() {
         console.error('Error caught in button');
     }
 
     render() {
         return (
             <button id={this.state.id} onClick={this.state.buttonAction} disabled={this.state.isDisabled}>{this.state.name}</button>
-        )
+        );
     }
 }
