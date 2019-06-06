@@ -12,8 +12,6 @@ export default class LapManager extends React.Component {
         // let allLaps = [];
 
         this.state = {
-            lapTime: props.lapTime,
-            lapCounter: props.lapCounter,
             prevLapCounter: 0,
             prevLapTime: 0,
             maxLapID: 0,
@@ -23,6 +21,9 @@ export default class LapManager extends React.Component {
 
     }
 
+    componentWillReceiveProps(){
+        console.log('reached');
+    }
 
     componentDidMount() {
         console.log('Lap Manager is mounted');
@@ -47,16 +48,15 @@ export default class LapManager extends React.Component {
     }
 
     updateAllLaps() {
-        console.log(this.state.lapCounter);
         if (this.state.lapCounter != this.state.prevLapCounter) {
             this.allLaps.push({
                 key: this.state.lapCounter,
                 value: this.state.lapTime
             });
-            this.setState({
-                prevLapCounter : this.state.lapCounter,
-                prevLapTime : this.state.lapTime
-            })
+            // this.setState({
+            //     prevLapCounter : this.state.lapCounter,
+            //     prevLapTime : this.state.lapTime
+            // })
             // console.log(this.allLaps);
         }
         
