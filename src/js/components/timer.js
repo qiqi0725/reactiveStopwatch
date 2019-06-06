@@ -5,6 +5,7 @@ import React from 'react';
 
 import { millisecondsToString, pad } from '../misc';
 import ButtonManager from './buttonManager';
+import LapManager from './lapManager';
 
 import '../../css/timer.css';
 
