@@ -6,10 +6,10 @@
   "scripts": {
     "test": "jest --passWithNoTests --runInBand --onlyChanged --notify",
     "start": "webpack-dev-server --open --mode development",
-    "create-doc": " jsdoc --configure .jsdoc.json src/* --verbose",
+    "create-doc": "jsdoc --configure .jsdoc.json src/* --verbose",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "push-prod": "npm run build-prod create-doc && git add . && git commit -m \"pre-deploy push\" && git push"
+    "push-prod": "npm run build-prod && npm run create-doc && git add . && git commit -m \"pre-deploy push\" && git push"
   },
   "repository": {
     "type": "git",
