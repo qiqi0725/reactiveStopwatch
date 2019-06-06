@@ -1,8 +1,15 @@
 /* eslint-disable class-methods-use-this */
 import React from 'react';
 
-import styles from '../../css/timer.css';
+import ButtonContainer from './buttonContainer';
 
+import '../../css/timer.css';
+
+/**
+ * @class Timer
+ * @classdesc Component for the main timer display
+ * @author Yu Qi Liu
+ */
 export default class Timer extends React.Component {
     constructor(props) {
         super(props);

@@ -4,17 +4,17 @@ const webpack = require('webpack');
 module.exports = {
     module: {
         rules: [{
-            test: /\.(js|jsx)$/,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            options: {
-                presets: ['@babel/env'],
+                test: /\.(js|jsx)$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                options: {
+                    presets: ['@babel/env'],
+                },
             },
-        },
-        {
-            test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
-        },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
     resolve: {
@@ -23,13 +23,13 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/'),
         publicPath: '/path/',
-        filename: 'bundle.js',
+        filename: 'bundledStopwatch.js',
     },
     devServer: {
-        contentBase: path.join(__dirname, 'public/'),
+        contentBase: path.join(__dirname, '/public/'),
         port: 8000,
-        publicPath: 'http://localhost:8000/dist/',
-        hotOnly: true,
+        publicPath: 'http://localhost:8000/dist',
+        hot: true,
     },
     plugins: [new webpack.HotModuleReplacementPlugin()],
 };
