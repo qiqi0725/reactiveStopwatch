@@ -4,7 +4,7 @@
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests --runInBand --onlyChanged --notify",
     "start": "webpack-dev-server --open --mode development",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production jsdoc --configure .jsdoc.json src/* --verbose"
@@ -40,7 +40,6 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
-    "html-loader": "^0.5.5",
     "jest": "^24.8.0",
     "jsdoc": "^3.6.2",
     "jsdom": "^15.1.1",
