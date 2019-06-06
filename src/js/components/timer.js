@@ -1,7 +1,9 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-console */
 import React from 'react';
 
 import Button from './button';
-import {millisecondsToString, pad} from '../misc';
+import { millisecondsToString, pad } from '../misc';
 
 import '../../css/timer.css';
 
@@ -23,57 +25,57 @@ export default class Timer extends React.Component {
         this.resetTime = this.resetTime.bind(this);
         this.resumeTime = this.resumeTime.bind(this);
         this.buttons = {
-                startButton: <Button
+            startButton: <Button
                 id='start'
                 name='Start'
                 bAction={this.startTime}
                 isDisabled={false} />,
-                lapButton: <Button
+            lapButton: <Button
                 id='lap'
                 name='Lap'
                 bAction={this.startLapTime}
                 isDisabled={true} />,
-                resetButton: <Button
+            resetButton: <Button
                 id='reset'
                 name='Reset'
                 bAction={this.resetTime}
                 isDisabled={false} />,
-                stopButton: <Button
+            stopButton: <Button
                 id='stop'
                 name='Stop'
                 bAction={this.stopTime}
                 isDisabled={false} />,
-                resumeButton: <Button
+            resumeButton: <Button
                 id='resume'
                 name='Resume'
                 bAction={this.resumeTime}
-                isDisabled={false} /> 
-            };
+                isDisabled={false} />,
+        };
         this.state = {
             time: '00:00:00.00',
-            lapTime : '00:00:00.00',
+            lapTime: '00:00:00.00',
             initTime: new Date(),
             lapCounter: 1,
             timer: null,
             lapTimer: null,
             displayedButtons: [this.buttons.startButton, this.buttons.lapButton],
-            };
+        };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log('Timer is mounted');
     }
 
-    componentDidCatch(){
+    componentDidCatch() {
         console.error('Excetipn caught in the timer component');
     }
 
-    componentWillUnmount(){
-        if(this.timer){
-        clearInterval(this.timer);
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer);
         }
-        if(this.lapTimer){
-        clearInterval(this.lapTimer);
+        if (this.lapTimer) {
+            clearInterval(this.lapTimer);
         }
     }
 
@@ -82,7 +84,7 @@ export default class Timer extends React.Component {
      * @memberof Timer
      * @name updateTime
      * @param {Date} newTime
-     * Used to modify the time states 
+     * Used to modify the time states
      */
     updateTime(newTime) {
         this.setState({
@@ -101,7 +103,7 @@ export default class Timer extends React.Component {
         // hide start, show stop
         this.setState({
             displayedButtons: [this.buttons.lapButton, this.buttons.stopButton],
-            timer: setInterval(() =>{
+            timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
             }, 10),
         });
@@ -112,7 +114,7 @@ export default class Timer extends React.Component {
      * @memberof Timer
      * @name startLapTime
      * @description Start lap interval
-     * @param {*} currentLap 
+     * @param {*} currentLap
      */
     startLapTime(currentLap) {
 
@@ -126,11 +128,11 @@ export default class Timer extends React.Component {
      */
     stopTime() {
         // hide stop, show reset resume
-        Button.setState({
-            isStopButtonVisible: false,
-            isResetButtonVisible: true,
-            isResumeButtonVisible: true,
-        });
+        // Button.setState({
+        //     isStopButtonVisible: false,
+        //     isResetButtonVisible: true,
+        //     isResumeButtonVisible: true,
+        // });
 
         clearInterval(this.state.timer);
         clearInterval(this.state.lapTimer);
