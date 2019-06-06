@@ -27,21 +27,21 @@ export default class Timer extends React.Component {
         this.stopTime = this.stopTime.bind(this);
         this.resetTime = this.resetTime.bind(this);
         this.resumeTime = this.resumeTime.bind(this);
-        this.state = {
-            time: '00:00:00.00',
-            lapTime: '00:00:00.00',
-            initTime: new Date(),
-            scenario: 0,
-            lapCounter: 1,
-            timer: null,
-            lapTimer: null,
-        };
         this.functions = {
             start: this.startTime,
             stop: this.stopTime,
             update: this.updateTime,
             reset: this.resetTime,
             resume: this.resumeTime,
+        };
+        this.state = {
+            time: '00:00:00.00',
+            lapTime: '00:00:00.00',
+            initTime: new Date(),
+            lapCounter: 1,
+            timer: null,
+            lapTimer: null,
+            buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
         };
     }
 
@@ -88,7 +88,7 @@ export default class Timer extends React.Component {
             timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
             }, 10),
-            scenario: 1,
+            buttonManager: <ButtonManager scenario={1} functions={this.functions} />,
         });
     }
 
@@ -114,7 +114,7 @@ export default class Timer extends React.Component {
         clearInterval(this.state.timer);
         clearInterval(this.state.lapTimer);
         this.setState({
-            scenario: 2,
+            buttonManager: <ButtonManager scenario={2} functions={this.functions} />,
         });
     }
 
@@ -126,11 +126,12 @@ export default class Timer extends React.Component {
      */
     resetTime() {
         // hide reset resume, show lap start
+        clearInterval(this.state.timer);
         this.setState({
             time: '00:00:00.00',
             lapTime: '00:00:00.00',
             initTime: new Date(),
-            scenario: 0,
+            buttonManager: <ButtonManager scenario={0} functions={this.functions} />
         });
     }
 
@@ -151,12 +152,7 @@ export default class Timer extends React.Component {
                 <div id='time'>
                     {(this.state.time)}
                 </div>
-                <div className="stopwatchButtons">
-                    <ButtonManager
-                        scenario={this.state.scenario}
-                        functions={this.functions}
-                    />
-                </div>
+                {this.state.buttonManager}
                 <div id='laps'>
                     <div id={`lapBlock${this.state.lapCounter}`}>
                         <span id={`lap${this.state.lapCounter}`}>
