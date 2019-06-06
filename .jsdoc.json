@@ -14,21 +14,21 @@
     "plugins": [
         "plugins/markdown"
     ],
-    "templates":{
-        "name": "Adaptive Stopwatch - Documentation",
-        "referenceTitle": "React Stopwatch",
+    "templates": {
+        "name": "Adaptive React Stopwatch",
+        "referenceTitle": "Stopwatch",
         "disableSort": false,
         "collapse": true,
         "ressources": {
             "Github repo": "https://github.com/qiqi0725/reactiveStopwatch"
         },
-        "footerText": "Adaptive Stopwatch - Documentation"
+        "footerText": "Stopwatch - Documentation"
     },
     "opts": {
         "destination": "./docs/",
         "encoding": "utf8",
         "private": true,
         "recurse": true,
-        "template": "./node_modules/jsdoc/templates/jsdoc-template"
+        "template": "./node_modules/tui-jsdoc-template"
     }
 }

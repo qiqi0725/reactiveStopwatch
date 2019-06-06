@@ -3,9 +3,11 @@ import React from 'react';
 import '../../css/button.css';
 
 /**
- * @class Button
- * @classdesc Component with 4 states (id,name,buttonAction,isVisible)
+ * @class
+ * @name Button
+ * @author Yu Qi Liu
  * @author Vincent Boivin
+ * @classdesc Button component
  */
 export default class Button extends React.Component {
     constructor(props) {
@@ -14,33 +16,21 @@ export default class Button extends React.Component {
             id: props.id,
             name: props.name,
             buttonAction: props.bAction,
-            isVisible: props.isVisible,
+            isDisabled: props.isDisabled,
         };
     }
 
-    /**
-     * 
-     */
     componentDidMount(){
         console.log(`Button ${this.state.name} has been mounted`);
     }
 
-    /**
-     * 
-     */
     componentDidCatch(){
         console.error('Error caught in button');
     }
 
-    /**
-     * 
-     */
     render() {
         return (
-            this.state.isVisible ?
-                <button id={this.state.id} onClick={this.state.buttonAction} key={this.state.key}>{this.state.name}</button>
-                :
-                null
+            <button id={this.state.id} onClick={this.state.buttonAction} disabled={this.state.isDisabled}>{this.state.name}</button>
         )
     }
 }

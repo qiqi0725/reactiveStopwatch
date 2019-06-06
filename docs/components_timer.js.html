@@ -1,0 +1,276 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: components/timer.js | Adaptive React Stopwatch</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="">
+        
+            <img src="img/toast-ui.png" width="100%" height="100%">
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Adaptive React Stopwatch</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="Button.html">Button</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Button_sub"></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#.resetTime">resetTime</a></li><li><a href="Timer.html#.resumeTime">resumeTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startTime">startTime</a></li><li><a href="Timer.html#.stopTime">stopTime</a></li><li><a href="Timer.html#.updateTime">updateTime</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#millisecondsToString">millisecondsToString</a></li><li><a href="global.html#pad">pad</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+
+import Button from './button';
+import {millisecondsToString, pad} from '../misc';
+
+import '../../css/timer.css';
+
+/**
+ * @class
+ * @name Timer
+ * @author Yu Qi Liu
+ * @author Vincent Boivin
+ * @classdesc Component used for lap timer and main timer
+ * @property {array} buttons - Button components
+ */
+export default class Timer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.startTime = this.startTime.bind(this);
+        this.startLapTime = this.startLapTime.bind(this);
+        this.updateTime = this.updateTime.bind(this);
+        this.stopTime = this.stopTime.bind(this);
+        this.resetTime = this.resetTime.bind(this);
+        this.resumeTime = this.resumeTime.bind(this);
+        this.buttons = {
+                startButton: &lt;Button
+                id='start'
+                name='Start'
+                bAction={this.startTime}
+                isDisabled={false} />,
+                lapButton: &lt;Button
+                id='lap'
+                name='Lap'
+                bAction={this.startLapTime}
+                isDisabled={true} />,
+                resetButton: &lt;Button
+                id='reset'
+                name='Reset'
+                bAction={this.resetTime}
+                isDisabled={false} />,
+                stopButton: &lt;Button
+                id='stop'
+                name='Stop'
+                bAction={this.stopTime}
+                isDisabled={false} />,
+                resumeButton: &lt;Button
+                id='resume'
+                name='Resume'
+                bAction={this.resumeTime}
+                isDisabled={false} /> 
+            };
+        this.state = {
+            time: '00:00:00.00',
+            lapTime : '00:00:00.00',
+            initTime: new Date(),
+            lapCounter: 1,
+            timer: null,
+            lapTimer: null,
+            displayedButtons: [this.buttons.startButton, this.buttons.lapButton],
+            };
+    }
+
+    componentDidMount(){
+        console.log('Timer is mounted');
+    }
+
+    componentDidCatch(){
+        console.error('Excetipn caught in the timer component');
+    }
+
+    componentWillUnmount(){
+        if(this.timer){
+        clearInterval(this.timer);
+        }
+        if(this.lapTimer){
+        clearInterval(this.lapTimer);
+        }
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name updateTime
+     * @param {Date} newTime
+     * Used to modify the time states 
+     */
+    updateTime(newTime) {
+        this.setState({
+            time: millisecondsToString(newTime),
+            lapTime: millisecondsToString(newTime),
+        });
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name startTime
+     * @description Start the timer interval
+     */
+    startTime() {
+        // hide start, show stop
+        this.setState({
+            displayedButtons: [this.buttons.lapButton, this.buttons.stopButton],
+            timer: setInterval(() =>{
+                this.updateTime(new Date() - this.state.initTime);
+            }, 10),
+        });
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name startLapTime
+     * @description Start lap interval
+     * @param {*} currentLap 
+     */
+    startLapTime(currentLap) {
+
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name stopTime
+     * @description Clear all intervals
+     */
+    stopTime() {
+        // hide stop, show reset resume
+        Button.setState({
+            isStopButtonVisible: false,
+            isResetButtonVisible: true,
+            isResumeButtonVisible: true,
+        });
+
+        clearInterval(this.state.timer);
+        clearInterval(this.state.lapTimer);
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name resetTime
+     * @description Reset all states
+     */
+    resetTime() {
+        // hide reset resume, show lap start
+        Button.setState({
+            isResetButtonVisible: false,
+            isResumeButtonVisible: false,
+            isLapButtonVisible: true,
+            isStartButtonVisible: true,
+        });
+        this.setState({
+            time: '00:00:00.00',
+            initTime: new Date(),
+        });
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name resumeTime
+     * @description Restarts intervals
+     */
+    resumeTime() {
+        // hide resume reset, show start lap
+        Button.setState({
+            isResumeButtonVisible: false,
+            isResetButtonVisible: false,
+            isStartButtonVisible: true,
+            isLapButtonVisible: true,
+        });
+
+        this.startTime();
+    }
+
+    render() {
+        return (
+            &lt;div className='stopwatch-adaptive'>
+                &lt;div id='time'>
+                    {(this.state.time)}
+                &lt;/div>
+                &lt;div className="stopwatchButtons">
+                    {this.state.displayedButtons}
+                &lt;/div>
+                &lt;div id='laps'>
+                    &lt;div id={`lapBlock${this.state.lapCounter}`}>
+                        &lt;span id={`lap${this.state.lapCounter}`}>
+                            {`Lap ${pad(this.state.lapCounter)}`}
+                        &lt;/span>
+                        &lt;span id={`timeLap${this.state.lapCounter}`}>
+                            {(this.state.lapTime)}
+                        &lt;/span>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        );
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="img/toast-ui.png" style="">
+    <div class="footer-text">Stopwatch - Documentation</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>

@@ -15,14 +15,12 @@
     color: white;
     padding: 2em;
     font-size: 3vh;
-    width: 60vw;
-    height: 40vh;
     overflow-y: auto;
 }
 
 #laps>div {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-content: center;
     margin-bottom: 2vh;
 }
