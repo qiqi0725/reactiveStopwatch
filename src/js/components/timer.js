@@ -22,33 +22,7 @@ export default class Timer extends React.Component {
         this.stopTime = this.stopTime.bind(this);
         this.resetTime = this.resetTime.bind(this);
         this.resumeTime = this.resumeTime.bind(this);
-        this.buttons = {
-                startButton: <Button
-                id='start'
-                name='Start'
-                bAction={this.startTime}
-                isDisabled={false} />,
-                lapButton: <Button
-                id='lap'
-                name='Lap'
-                bAction={this.startLapTime}
-                isDisabled={true} />,
-                resetButton: <Button
-                id='reset'
-                name='Reset'
-                bAction={this.resetTime}
-                isDisabled={false} />,
-                stopButton: <Button
-                id='stop'
-                name='Stop'
-                bAction={this.stopTime}
-                isDisabled={false} />,
-                resumeButton: <Button
-                id='resume'
-                name='Resume'
-                bAction={this.resumeTime}
-                isDisabled={false} /> 
-            };
+        
         this.state = {
             time: '00:00:00.00',
             lapTime : '00:00:00.00',
@@ -56,7 +30,6 @@ export default class Timer extends React.Component {
             lapCounter: 1,
             timer: null,
             lapTimer: null,
-            displayedButtons: [this.buttons.startButton, this.buttons.lapButton],
             };
     }
 
@@ -100,7 +73,6 @@ export default class Timer extends React.Component {
     startTime() {
         // hide start, show stop
         this.setState({
-            displayedButtons: [this.buttons.lapButton, this.buttons.stopButton],
             timer: setInterval(() =>{
                 this.updateTime(new Date() - this.state.initTime);
             }, 10),
@@ -126,11 +98,6 @@ export default class Timer extends React.Component {
      */
     stopTime() {
         // hide stop, show reset resume
-        Button.setState({
-            isStopButtonVisible: false,
-            isResetButtonVisible: true,
-            isResumeButtonVisible: true,
-        });
 
         clearInterval(this.state.timer);
         clearInterval(this.state.lapTimer);
@@ -144,12 +111,6 @@ export default class Timer extends React.Component {
      */
     resetTime() {
         // hide reset resume, show lap start
-        Button.setState({
-            isResetButtonVisible: false,
-            isResumeButtonVisible: false,
-            isLapButtonVisible: true,
-            isStartButtonVisible: true,
-        });
         this.setState({
             time: '00:00:00.00',
             initTime: new Date(),
@@ -164,12 +125,6 @@ export default class Timer extends React.Component {
      */
     resumeTime() {
         // hide resume reset, show start lap
-        Button.setState({
-            isResumeButtonVisible: false,
-            isResetButtonVisible: false,
-            isStartButtonVisible: true,
-            isLapButtonVisible: true,
-        });
 
         this.startTime();
     }
@@ -181,7 +136,6 @@ export default class Timer extends React.Component {
                     {(this.state.time)}
                 </div>
                 <div className="stopwatchButtons">
-                    {this.state.displayedButtons}
                 </div>
                 <div id='laps'>
                     <div id={`lapBlock${this.state.lapCounter}`}>
