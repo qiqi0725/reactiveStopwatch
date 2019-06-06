@@ -6,7 +6,7 @@ import React from 'react';
 
 import { millisecondsToString, pad } from '../misc';
 import ButtonManager from './buttonManager';
-import LapManager from './lapManager';
+// import LapManager from './lapManager';
 
 import '../../css/timer.css';
 
@@ -42,7 +42,7 @@ export default class Timer extends React.Component {
             lapCounter: 1,
             timer: null,
             lapTimer: null,
-<<<<<<< HEAD
+            buttonManager: <ButtonManager scenario={0} functions={this.functions} />
         };
         this.functions = {
             start: this.startTime,
@@ -51,9 +51,6 @@ export default class Timer extends React.Component {
             reset: this.resetTime,
             resume: this.resumeTime,
             startLapTime: this.startLapTime
-=======
-            buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
->>>>>>> 55c3a37c531e3ccea212123d7e5dcbd24fe635cf
         };
         this.allLaps = [];
     }
@@ -187,7 +184,7 @@ export default class Timer extends React.Component {
                 </div>
                 {this.state.buttonManager}
                 <div id='laps'>
-                    <LapManager allLaps={this.state.allLaps} prevLapTime={this.state.startLapTime} currLapTime={this.state.lapTime}></LapManager>
+                    {/* <LapManager allLaps={this.state.allLaps} prevLapTime={this.state.startLapTime} currLapTime={this.state.lapTime}></LapManager> */}
                     {/* <div id={`lapBlock${this.state.lapCounter}`}>
                         <span id={`lap${this.state.lapCounter}`}>
                             {`Lap ${pad(this.state.lapCounter)}`}

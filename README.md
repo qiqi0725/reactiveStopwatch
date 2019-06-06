@@ -1,6 +1,6 @@
-# ![alt text](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png "Logo Title Text 1") Adaptive Stopwatch React 
+# ![Adaptive Logo](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png) Adaptive Stopwatch React ![Status Image](https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master)
 ## A stopwatch created with React
-## [Stopwatch Demo](https://www.google.com) | [Documentation](https://qiqi0725.github.io/reactiveStopwatch/index.html)
+## [Stopwatch Demo](https://stopwatch-reactive.herokuapp.com/) | [Documentation](https://qiqi0725.github.io/reactiveStopwatch/index.html)
 
 **To Run Locally**
 * [Install npm with Node](https://nodejs.org/en/download/)
