@@ -39,12 +39,10 @@ export default class Timer extends React.Component {
 
     componentDidMount() {
         console.log('Timer is mounted');
-
-        
     }
 
     componentDidCatch() {
-        console.error('Excetipn caught in the timer component');
+        console.error('Exception caught in the timer component');
     }
 
     componentWillUnmount() {

@@ -11,11 +11,16 @@ export default class ButtonManager extends React.Component {
                 name='Start'
                 bAction={this.startTime}
                 isDisabled={false} />,
-            lapButton: <Button
+            lapButtonDisabled: <Button
                 id='lap'
                 name='Lap'
                 bAction={this.startLapTime}
                 isDisabled={true} />,
+            lapButtonEnabled: <Button
+                id='lap'
+                name='Lap'
+                bAction={this.startLapTime}
+                isDisabled={false} />,
             resetButton: <Button
                 id='reset'
                 name='Reset'
@@ -37,11 +42,33 @@ export default class ButtonManager extends React.Component {
         }
     }
 
+    executeScenario(num){
+        switch(num) {
+            case 0:
+                // 0: lapDisabled start
+                return
+                this.buttons.lapButtonDisabled;
+                this.buttons.startButton;
+              break;
+            case 1:
+              // 1: lapEnabled stop
+              return
+                this.buttons.lapButtonEnabled;
+                this.buttons.startButton;
+              break;
+            case 2:
+                // 2: reset resume
+                return
+                this.buttons.resetButton;
+                this.buttons.resumeButton;
+            default:
+              console.log("ERROR: INVALID SCENARIO, WHICH BUTTON DID YOU PRESS??");
+          }
+    }
+
     render(){
         return (
-            // 0: lap start
-            // 1: lap stop
-            // 2: reset resume
+            executeScenario(this.state.scenario)
         );
     }    
 }
