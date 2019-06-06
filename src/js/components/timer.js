@@ -28,6 +28,7 @@ export default class Timer extends React.Component {
             time: '00:00:00.00',
             lapTime: '00:00:00.00',
             initTime: new Date(),
+            scenario: 0,
             lapCounter: 1,
             timer: null,
             lapTimer: null,
@@ -77,6 +78,7 @@ export default class Timer extends React.Component {
             timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
             }, 10),
+            scenario: 1,
         });
     }
 
@@ -99,9 +101,11 @@ export default class Timer extends React.Component {
      */
     stopTime() {
         // hide stop, show reset resume
-
         clearInterval(this.state.timer);
         clearInterval(this.state.lapTimer);
+        this.setState({
+            scenario: 2,
+        });
     }
 
     /**
@@ -114,7 +118,9 @@ export default class Timer extends React.Component {
         // hide reset resume, show lap start
         this.setState({
             time: '00:00:00.00',
+            lapTime: '00:00:00.00',
             initTime: new Date(),
+            scenario: 0,
         });
     }
 
@@ -126,7 +132,6 @@ export default class Timer extends React.Component {
      */
     resumeTime() {
         // hide resume reset, show start lap
-
         this.startTime();
     }
 
