@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home | Adaptive React Stopwatch</title>
+    <title>Source: components/buttonManager.js | Adaptive React Stopwatch</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -42,74 +44,60 @@
 
 
     
-
-
-
-
-
-
-
-
-
-    
-
-
     <section>
-        <article class="readme"><h1><img src="https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png" alt="Adaptive Logo"> Adaptive Stopwatch React <img src="https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master" alt="Status Image"></h1>
-<h2>A stopwatch created with React</h2>
-<h2><a href="https://stopwatch-reactive.herokuapp.com/">Stopwatch Demo</a> | <a href="https://qiqi0725.github.io/reactiveStopwatch/index.html">Documentation</a></h2>
-<p><strong>To Run Locally</strong></p>
-<ul>
-<li><a href="https://nodejs.org/en/download/">Install npm with Node</a></li>
-<li>Update local repo</li>
-</ul>
-<pre class="prettyprint source lang-sh"><code>npm update
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable class-methods-use-this */
+import React from 'react';
+
+import '../../css/button.css';
+
+/**
+ * @class
+ * @name ButtonManager
+ * @author Yu Qi Liu
+ * @author Vincent Boivin
+ * @classdesc Component in charge of buttons states and their side effects.
+ */
+export default class ButtonManager extends React.Component {
+    constructor(props) {
+        super(props);
+        this.buttons = {
+            startButton: &lt;button id='start' onClick={props.functions.start}>{'start'}&lt;/button>,
+            lapButtonDisabled: &lt;button id='lap' disabled={true}>{'lap'}&lt;/button>,
+            lapButtonEnabled: &lt;button id='lap' onClick={props.functions.start}>{'lap'}&lt;/button>,
+            resetButton: &lt;button id='reset' onClick={props.functions.reset}>{'reset'}&lt;/button>,
+            stopButton: &lt;button id='stop' onClick={props.functions.stop}>{'stop'}&lt;/button>,
+            resumeButton: &lt;button id='resume' onClick={props.functions.resume}>{'resume'}&lt;/button>,
+        };
+    }
+
+    chooseButtons(b1, b2) {
+        return (&lt;div className='stopwatchButtons'>{b1}{b2}&lt;/div>);
+    }
+
+    renderScenario(num) {
+        switch (num) {
+        case 0:
+            // 0: lapDisabled start
+            return (this.chooseButtons(this.buttons.lapButtonDisabled, this.buttons.startButton));
+        case 1:
+            // 1: lapEnabled stop
+            return (this.chooseButtons(this.buttons.lapButtonEnabled, this.buttons.stopButton));
+        case 2:
+            // 2: reset resume
+            return (this.chooseButtons(this.buttons.resetButton, this.buttons.resumeButton));
+        default:
+            return null;
+        }
+    }
+
+    render() {
+        return this.renderScenario(this.props.scenario);
+    }
+}
 </code></pre>
-<ul>
-<li>Run start script</li>
-</ul>
-<pre class="prettyprint source lang-sh"><code>npm run start
-</code></pre>
-<p><strong>Dependencies</strong></p>
-<ul>
-<li>Npm</li>
-</ul>
-<p><strong>Contributors</strong></p>
-<ul>
-<li>Vincent Boivin</li>
-<li>Yu Qi Liu</li>
-</ul>
-<p><strong>Toolchain</strong></p>
-<ul>
-<li>Babel</li>
-<li>Webpack</li>
-<li>Jest</li>
-<li>Eslint (airbnb settings)</li>
-</ul>
-<p><strong>Language</strong></p>
-<ul>
-<li>JavaScript</li>
-</ul>
-<p><strong>Library</strong></p>
-<ul>
-<li>React</li>
-</ul>
-<p><strong>Package Manager</strong></p>
-<ul>
-<li>Npm</li>
-</ul>
-<p><strong>Cloud Deployment Platform</strong></p>
-<ul>
-<li>Heroku</li>
-</ul>
-<p><strong>CI-CD</strong></p>
-<ul>
-<li>Travis-CI</li>
-<li>Github</li>
-</ul></article>
+        </article>
     </section>
-
-
 
 
 
@@ -126,7 +114,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'package:undefined_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 
