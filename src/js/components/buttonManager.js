@@ -31,6 +31,17 @@ export default class ButtonManager extends React.Component {
             bAction={this.resumeTime}
             isDisabled={false} /> 
         };
+        this.state = {
+            scenario: props.scenario
+        }
     }
-    
+
+    render(){
+        return (
+            // 0: lap start
+            // 1: lap stop
+            // 2: reset resume
+        );
+    }    
 }
+

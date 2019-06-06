@@ -4,6 +4,7 @@
 import React from 'react';
 
 import { millisecondsToString, pad } from '../misc';
+import ButtonManager from './buttonManager';
 
 import '../../css/timer.css';
 
@@ -16,6 +17,7 @@ import '../../css/timer.css';
  * @property {array} buttons - Button components
  */
 export default class Timer extends React.Component {
+
     constructor(props) {
         super(props);
         this.startTime = this.startTime.bind(this);
@@ -36,6 +38,8 @@ export default class Timer extends React.Component {
 
     componentDidMount() {
         console.log('Timer is mounted');
+
+        
     }
 
     componentDidCatch() {
