@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/named */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
@@ -17,7 +18,6 @@ import '../../css/timer.css';
  * @property {array} buttons - Button components
  */
 export default class Timer extends React.Component {
-
     constructor(props) {
         super(props);
         this.startTime = this.startTime.bind(this);
@@ -34,6 +34,13 @@ export default class Timer extends React.Component {
             lapCounter: 1,
             timer: null,
             lapTimer: null,
+        };
+        this.functions = {
+            start: this.startTime,
+            stop: this.stopTime,
+            update: this.updateTime,
+            reset: this.resetTime,
+            resume: this.resumeTime,
         };
     }
 
@@ -144,6 +151,10 @@ export default class Timer extends React.Component {
                     {(this.state.time)}
                 </div>
                 <div className="stopwatchButtons">
+                    <ButtonManager
+                        scenario={this.state.scenario}
+                        functions={this.functions}
+                    />
                 </div>
                 <div id='laps'>
                     <div id={`lapBlock${this.state.lapCounter}`}>

@@ -1,21 +1,24 @@
 {
   "name": "reactivestopwatch",
   "version": "0.0.1",
-  "description": "Magic",
+  "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "webpack-dev-server --open --mode development",
     "build-dev": "webpack --mode development",
-    "build-prod": "webpack --mode production",
-    "create-doc": "jsdoc --configure .jsdoc.json src/* --verbose"
+    "build-prod": "webpack --mode production jsdoc --configure .jsdoc.json src/* --verbose"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qiqi0725/reactiveStopwatch.git"
   },
   "keywords": [
-    "lol"
+    "react",
+    "jest",
+    "enzyme",
+    "babel",
+    "webpack"
   ],
   "author": "Vincent Boivin, Yu Qi Liu",
   "license": "ISC",
