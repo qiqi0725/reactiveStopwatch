@@ -4,7 +4,7 @@
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
-    "test": "jest --passWithNoTests --runInBand --onlyChanged --notify",
+    "test": "jest --runInBand",
     "start": "webpack-dev-server --open --mode development",
     "create-doc": "jsdoc -r --configure .jsdoc.json src --verbose",
     "build-dev": "webpack --mode development",
