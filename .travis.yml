@@ -4,23 +4,9 @@ node_js:
 cache: npm
 
 before_script:
-- npm i jest
-- npm i react
-- npm i jsdom
-- npm i jsdoc
-- npm i webpack
-- npm i react-dom
-- npm i @babel/core
-- npm i @babel/preset-env
-- npm i @babel/preset-react
-- npm i babel-loader
-- npm i css-loader
-- npm i style-loader
-- npm i tui-jsdoc-template
+- npm i jest react jsdom
 script: npm run test
 
-before_deploy: 
-- "npm run build-prod"
 deploy:
   provider: heroku
   app: stopwatch-reactive
