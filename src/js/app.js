@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 
 import Timer from './components/timer';
@@ -8,4 +9,4 @@ const App = () => (
     <Timer />
 );
 
-export default App;
+export default hot(App);
