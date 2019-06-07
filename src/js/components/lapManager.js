@@ -16,7 +16,7 @@ export default class LapManager extends React.Component {
         this.maxTime = 0;
         this.minTime = 99999;
     }
-
+ 
     componentWillReceiveProps() {
         this.setState({
             allLaps: this.props.allLaps,
@@ -59,11 +59,15 @@ export default class LapManager extends React.Component {
             if (value <= this.minTime) {
                 lapStyle = { color: "green" }
                 this.minTime = value;
+                value = millisecondsToString(value);
             }
             else if (value >= this.maxTime) {
                 lapStyle = { color: "red" }
                 this.maxTime = value;
+                value = millisecondsToString(value);
             }
+
+            
 
             finalDisplay.push(<div id={`lapBlock${key}`} style={lapStyle}>
                 <span id={`lap${key}`}>

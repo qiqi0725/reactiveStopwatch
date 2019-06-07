@@ -210,7 +210,7 @@ export default class Timer extends React.Component {
                             {`Lap ${pad(this.state.lapCounter)}`}
                         </span>
                         <span id={`timeLap${this.state.lapCounter}`}>
-                            {(this.state.lapTime)}
+                            {millisecondsToString(this.state.lapTime)}
                         </span>
                     </div>
                     {this.state.lapManager}
