@@ -4,12 +4,12 @@
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server 8000 --open --mode development",
+    "start": "webpack-dev-server --open --mode development",
     "create-doc": "jsdoc -r --configure .jsdoc.json src --verbose",
     "tests": "jest --runInBand",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "push-prod": "npm run build-prod && npm run create-doc && cp ./public/index.html ./public/hourglass.svg -t ./dist/ && git add . && git commit -m \"pre-deploy push\" && git push"
+    "push-prod": "npm run build-prod && npm run create-doc && cp ./public/index.html ./public/hourglass.svg ./public/bundledStopwatch.js -t ./dist/ && git add . && git commit -m \"pre-deploy push\" && git push"
   },
   "repository": {
     "type": "git",
