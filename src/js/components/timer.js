@@ -81,7 +81,7 @@ export default class Timer extends React.Component {
             time: millisecondsToString(newTimeMs),
         });
 
-        if(this.state.lapCounter == 1){
+        if(this.state.lapCounter === 1){
             this.setState({
                 lapTimeMs: newTimeMs,
                 lapTime: millisecondsToString(newTimeMs),
@@ -171,7 +171,7 @@ export default class Timer extends React.Component {
      */
     startLapTime(isNewLap) {
         // clear previous lap timer
-        if (this.state.lapCounter >= 1 && this.state.lapCounter) {
+        if (this.state.lapCounter >= 1 && this.state.lapCounter && isNewLap) {
             clearInterval(this.state.lapTimer);
         } 
 
@@ -187,7 +187,7 @@ export default class Timer extends React.Component {
             lapTimer: setInterval(() => {
                 this.updateLapTime(new Date() - this.state.lapInitTime);
             }, 76),
-            lapCounter: isNewLap? this.state.lapCounter + 1 : this.state.lapCounter,
+            lapCounter: isNewLap ? this.state.lapCounter + 1 : this.state.lapCounter,
             lapManager: <LapManager lapCounter={this.state.lapCounter} lapTime={this.state.lapTime} />,
         });
 

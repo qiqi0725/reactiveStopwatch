@@ -27,7 +27,7 @@ module.exports = {
         filename: 'bundledStopwatch.js',
     },
     devServer: {
-        contentBase: path.join(__dirname, '/public/'),
+        contentBase: path.join(__dirname, 'public/'),
         publicPath: 'http://localhost:8000/dist',
         port: 8000,
         hot: true,
