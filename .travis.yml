@@ -1,7 +1,6 @@
 language: node_js
 node_js:
 - '10'
-cache: npm
 before_script:
 - npm i jest react jsdom
 script: npm run test
@@ -10,3 +9,5 @@ deploy:
   app: stopwatch-reactive
   api_key:
     secure: KF/tDuUk1WS+a/eDMKEZJz2CGT88aj0zplqR8cYBXkYJnA2GmngekEyeEFq14HIZPD44bt4MrIoq9zoMUsDN+wzTUwFaWxUCiVBhEFv7QqL2EgTVQXenJUZN/WzemHYu/QEy33zHJvpzMkoF3JKChf/e8bBliahXusvno3fG01InxRJqqYANTfodg1+f0jykRq3rgK4a7mXkIL3BYzvmKaO77Y1pGH0pRTi8UUjZ98BWvy9TMpZYSDe223Z8Iq0g/33CsEEAgW1B7CzJVsD5HCmQ/ZVNxrv6yuxuV6Fys8sgoStEsR7K+BjtSgCRCMfZc4FOFBfnzy4eoLz7BcXSl3Dlu2jv3E56Z8lfRKDGOxrs2Cprnt1IV89klh3xYj4pRT2l3qzi07d2eL9CEqD7nKTddg6A6qQydPQnWY+9gw4uc3eKoyF2Kz20ONxcMUoAwvWlvd2P9lf+QdUe0Hma0WQyQXoWc8rCMJs+PDDVsfIMWcklZ9as94JTI8qum9dlhMLa6979BxSj+52bBhJ2J6MWkTJAftEejfs+2JB43EHN7OLrsNEhuFDhr8Olg99Ot640MmHVOwjCnXblkLzrNEAARK7WrUorrHD1l/1DPZQ0DDuYvbtfngi6xexsMtM8axYVakc/nWU9ZCBEET2t1h516mdMn8rJmrv7nBgUYlU=
+  on:
+    repo: Vboivin/reactiveStopwatch
