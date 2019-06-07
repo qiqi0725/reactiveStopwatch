@@ -4,10 +4,10 @@
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode production",
-    "start-dev": "webpack-dev-server --open --mode development",
+    "start": "webpack-dev-server --port $PORT --mode production",
+    "start-dev": "webpack-dev-server --port 8000 --open --mode development",
     "create-doc": "jsdoc -r --configure .jsdoc.json src --verbose",
-    "test": "jest --runInBand",
+    "tests": "jest --runInBand",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
     "push-prod": "npm run build-prod && npm run create-doc && git add . && git commit -m \"pre-deploy push\" && git push"

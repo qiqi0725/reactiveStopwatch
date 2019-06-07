@@ -30,7 +30,6 @@ module.exports = env => {
         devServer: {
             contentBase: path.join(__dirname, '/public/'),
             publicPath: 'http://localhost:8000/dist',
-            port: 8000 || env.PORT,
             hot: true,
         },
         plugins: [new webpack.HotModuleReplacementPlugin()],
