@@ -110,6 +110,7 @@ export default class Timer extends React.Component {
                 this.updateTime(new Date() - this.state.initTime);
             }, 76),
             buttonManager: <ButtonManager scenario={1} functions={this.functions} />,
+            
         });
     }
 
@@ -125,6 +126,7 @@ export default class Timer extends React.Component {
         clearInterval(this.state.lapTimer);
         this.setState({
             buttonManager: <ButtonManager scenario={2} functions={this.functions} />,
+            // lapInitTime: new Date()
         });
     }
 
