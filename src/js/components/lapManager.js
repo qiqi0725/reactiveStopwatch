@@ -12,10 +12,10 @@ export default class LapManager extends React.Component {
         // let allLaps = [];
 
         this.state = {
-            prevLapCounter: 0,
-            prevLapTime: 0,
-            maxLapID: 0,
-            minLapID: 0
+            lapCounter: props.counter,
+            lapTime: props.lapTime,
+            max: {},
+            min: {},
         }
         this.allLaps = [];
 
@@ -37,12 +37,12 @@ export default class LapManager extends React.Component {
     updateMinMax() {
         if (allLaps().getValue(this.state.lapCounter) < allLaps.getValue(this.state.minLapID)) {
             this.setState({
-                minLapID: this.state.lapCounter
-            })
+                min: {lapCounter: this.state.lapTime},
+            });
         }
         else if (allLaps().getValue(this.state.lapCounter) > allLaps.getValue(this.state.maxLapID)) {
             this.setState({
-                maxLapID: this.state.lapCounter
+                max: {lapCounter: this.state.lapTime},
             })
         }
     }
@@ -53,11 +53,6 @@ export default class LapManager extends React.Component {
                 key: this.state.lapCounter,
                 value: this.state.lapTime
             });
-            // this.setState({
-            //     prevLapCounter : this.state.lapCounter,
-            //     prevLapTime : this.state.lapTime
-            // })
-            // console.log(this.allLaps);
         }
         
     }
@@ -89,7 +84,7 @@ export default class LapManager extends React.Component {
         //         </span>
         //     </div>
         // );
-        return null;
+        return finalDisplay;
     }
 
     render() {
@@ -106,7 +101,6 @@ export default class LapManager extends React.Component {
         //     this.displayAllLaps()
         // );
         this.updateAllLaps();
-        // this.displayAllLaps();
-        return null;
+        return this.displayAllLaps();
     }
 }

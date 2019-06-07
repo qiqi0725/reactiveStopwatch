@@ -1,6 +1,6 @@
 {
   "name": "reactivestopwatch",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {

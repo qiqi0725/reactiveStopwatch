@@ -34,7 +34,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="ButtonManager.html">ButtonManager</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="ButtonManager_sub"></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#.resetTime">resetTime</a></li><li><a href="Timer.html#.resumeTime">resumeTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startTime">startTime</a></li><li><a href="Timer.html#.stopTime">stopTime</a></li><li><a href="Timer.html#.updateTime">updateTime</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#millisecondsToString">millisecondsToString</a></li><li><a href="global.html#pad">pad</a></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="ButtonManager.html">ButtonManager</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="ButtonManager_sub"></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#.resetTime">resetTime</a></li><li><a href="Timer.html#.resumeTime">resumeTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startTime">startTime</a></li><li><a href="Timer.html#.stopTime">stopTime</a></li><li><a href="Timer.html#.updateTime">updateTime</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#millisecondsToString">millisecondsToString</a></li><li><a href="global.html#pad">pad</a></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -64,7 +64,7 @@ export default class ButtonManager extends React.Component {
         this.buttons = {
             startButton: &lt;button id='start' onClick={props.functions.start}>{'start'}&lt;/button>,
             lapButtonDisabled: &lt;button id='lap' disabled={true}>{'lap'}&lt;/button>,
-            lapButtonEnabled: &lt;button id='lap' onClick={props.functions.start}>{'lap'}&lt;/button>,
+            lapButtonEnabled: &lt;button id='lap' onClick={props.functions.lap}>{'lap'}&lt;/button>,
             resetButton: &lt;button id='reset' onClick={props.functions.reset}>{'reset'}&lt;/button>,
             stopButton: &lt;button id='stop' onClick={props.functions.stop}>{'stop'}&lt;/button>,
             resumeButton: &lt;button id='resume' onClick={props.functions.resume}>{'resume'}&lt;/button>,

@@ -1,4 +1,4 @@
-# ![Adaptive Logo](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png) Adaptive Stopwatch React ![Status Image](https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master)
+# ![Adaptive Logo](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png) Adaptive Stopwatch React ![Status Image](https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master) ![Dependencies Image](https://david-dm.org/Vboivin/reactiveStopwatch.svg)
 ### React web application imitating the look and feel of the iPhone stopwatch application. Other than React, no 3rd party libraries were allowed for JavaScript and for CSS.
 
 ## [Stopwatch Demo](https://reactive-stopwatch.s3.us-east-2.amazonaws.com/index.html) \ [Documentation](https://vboivin.github.io/reactiveStopwatch/)
