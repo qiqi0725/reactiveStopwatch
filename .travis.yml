@@ -18,4 +18,3 @@ deploy:
     repo: Vboivin/reactiveStopwatch
   region: us-east-2
   default_text_charset: 'utf-8'
-after_deploy: 'rm dist/index.html hourglass.svg'
