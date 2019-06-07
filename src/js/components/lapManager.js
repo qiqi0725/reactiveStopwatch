@@ -12,12 +12,13 @@ export default class LapManager extends React.Component {
         // let allLaps = [];
 
         this.state = {
-            lapCounter: props.counter,
-            lapTime: props.lapTime,
+            // lapCounter: props.counter,
+            // lapTime: props.lapTime,
             max: {},
             min: {},
+            allLaps: props.allLaps
         }
-        this.allLaps = [];
+        // this.allLaps = [];
 
     }
 
@@ -48,7 +49,7 @@ export default class LapManager extends React.Component {
     }
 
     updateAllLaps() {
-        if (this.state.lapCounter != this.state.prevLapCounter) {
+        if (this.state.allLaps && this.state.lapCounter != this.state.prevLapCounter) {
             this.allLaps.push({
                 key: this.state.lapCounter,
                 value: this.state.lapTime
@@ -59,10 +60,14 @@ export default class LapManager extends React.Component {
 
     // display all laps
     displayAllLaps() {
-        updateAllLaps();
+
+        if (!this.state.allLaps){
+            return null
+        }
+        // updateAllLaps();
         let finalDisplay = [];
         for (const [key, value] of Object.entries(this.allLaps)) {
-
+            console.log("@@@@@@" + value);
 
             finalDisplay.push(<div id={`lapBlock${key}`}>
                 <span id={`lap${key}`}>

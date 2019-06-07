@@ -45,7 +45,8 @@ export default class Timer extends React.Component {
             timer: null,
             lapTimer: null,
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
-            lapManager: <LapManager counter={1} lapTime={0} />,
+            // lapManager: <LapManager counter={1} lapTime={0} />,
+            lapManager: <LapManager></LapManager>
         };
         this.allLaps = [];
         this.firstLapTimer = null;
@@ -149,7 +150,9 @@ export default class Timer extends React.Component {
             initLapTime: null,
             lapCounter: 1,
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
-            lapManager: <LapManager lapCounter={1} lapTime={0} />,
+            // lapManager: <LapManager lapCounter={1} lapTime={0} />,
+            lapManager: <LapManager/>,
+
         });
     }
 
@@ -190,7 +193,8 @@ export default class Timer extends React.Component {
                 this.updateLapTime(new Date() - this.state.lapInitTime);
             }, 76),
             lapCounter: isNewLap ? this.state.lapCounter + 1 : this.state.lapCounter,
-            lapManager: <LapManager lapCounter={this.state.lapCounter} lapTime={this.state.lapTime} />,
+            // lapManager: <LapManager lapCounter={this.state.lapCounter} lapTime={this.state.lapTime} />,
+            lapManager: <LapManager allLaps={this.allLaps}/>
         });
 
         if(isNewLap){
@@ -199,7 +203,7 @@ export default class Timer extends React.Component {
                 value: this.state.lapTime,
             });
         }
-        console.log(this.allLaps);
+        // console.log(this.allLaps);
     }
 
     render() {
@@ -210,14 +214,16 @@ export default class Timer extends React.Component {
                 </div>
                 {this.state.buttonManager}
                 <div id='laps'>
-                    <div id={`lapBlock${this.state.lapCounter}`}>
+                    {/* <div id={`lapBlock${this.state.lapCounter}`}>
                         <span id={`lap${this.state.lapCounter}`}>
                             {`Lap ${pad(this.state.lapCounter)}`}
                         </span>
                         <span id={`timeLap${this.state.lapCounter}`}>
-                            {(this.state.lapTime)}
+        console.log("????????????");
+nu                            {(this.state.lapTime)}
                         </span>
-                    </div>
+                    </div> */}
+                    {this.state.lapManager}
                 </div>
             </div>
         );
