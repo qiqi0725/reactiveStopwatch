@@ -20,7 +20,7 @@ npm update
 ```
 * Run development start script
 ```sh
-npm run start-dev
+npm run start
 ```
 * Your React application is now listening on port 8000
 * Your default browser should display your application
@@ -40,5 +40,5 @@ npm run tests
 * [Enzyme](https://enzyme.com) - The React components testing library
 * [Jsdoc](https://jsdoc.com) - The documentation generator
 * [Travis CI](https://travis-ci.org) - The continuous integration tool
-* [Heroku](https://heroku.com) - The deployment platform
+* [AWS](https://aws.com) - The deployment platform
 * [Npm](https://npm.com) - The package manager

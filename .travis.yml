@@ -1,13 +1,21 @@
 language: node_js
 node_js:
 - '10'
+
 before_script:
 - npm i jest react jsdom
-script: npm run test
+script: npm run tests
+
 deploy:
-  provider: heroku
-  app: stopwatch-reactive
-  api_key:
-    secure: KF/tDuUk1WS+a/eDMKEZJz2CGT88aj0zplqR8cYBXkYJnA2GmngekEyeEFq14HIZPD44bt4MrIoq9zoMUsDN+wzTUwFaWxUCiVBhEFv7QqL2EgTVQXenJUZN/WzemHYu/QEy33zHJvpzMkoF3JKChf/e8bBliahXusvno3fG01InxRJqqYANTfodg1+f0jykRq3rgK4a7mXkIL3BYzvmKaO77Y1pGH0pRTi8UUjZ98BWvy9TMpZYSDe223Z8Iq0g/33CsEEAgW1B7CzJVsD5HCmQ/ZVNxrv6yuxuV6Fys8sgoStEsR7K+BjtSgCRCMfZc4FOFBfnzy4eoLz7BcXSl3Dlu2jv3E56Z8lfRKDGOxrs2Cprnt1IV89klh3xYj4pRT2l3qzi07d2eL9CEqD7nKTddg6A6qQydPQnWY+9gw4uc3eKoyF2Kz20ONxcMUoAwvWlvd2P9lf+QdUe0Hma0WQyQXoWc8rCMJs+PDDVsfIMWcklZ9as94JTI8qum9dlhMLa6979BxSj+52bBhJ2J6MWkTJAftEejfs+2JB43EHN7OLrsNEhuFDhr8Olg99Ot640MmHVOwjCnXblkLzrNEAARK7WrUorrHD1l/1DPZQ0DDuYvbtfngi6xexsMtM8axYVakc/nWU9ZCBEET2t1h516mdMn8rJmrv7nBgUYlU=
+  provider: s3
+  access_key_id: AKIAIR6AIIUVGSTVU7BA
+  secret_access_key:
+    secure: Lswz1MU26djWj+KBpRSbaC7sZ92CkNa3yrNs7J/R8jI5ZReHFOa20sak+4djF/YL1RUaZQmcqy/sbQPqRVYifE5vWuLUjI8GbjSVfcUHelvbgMSRW8vtyW1G5rg5V9n264gaZ7f0hOeCWxlb22S7Jrqpb8FXCRwGXRbcP1slNYF0bEgrXZC5DzkmJ9vhTb3K7MCNi22EpjcITeYNMwJbm/exU4oWaR7Q/q2hGynNpe8a3Y2YKxiBHQb5miGCoHzaXcNPVSoKBuy63X2iLr88SuQPbZE8MU13o3fmCtZh42MlL1aUrox+AeWmEgxzKy7h056AtTvI6gn2ZeScSHOIOxf+rr7LlPRvwYXQ5dGKsvuHZiBMk/oKatTMYd3sglkj8Z+v7IFLLzqHskMbZsZbWM9sSSTiXuSJUiOLFvSaVhA5gtA1lqbchGB+4QuHiFC0LxuBlvUVi+RoInbtXk+qNN9tHT2r6dSK4TpDzfEkZgMObdgjvIz68f42p7rGVzXAHckL6FDB8YppUqhbVfKd5tu+Jw2Mg7+xuT4i7aElQ25Eq8h2AlsitakYWBQCPFnh6Xv2C5Mht7SAncdmG1x4IZN54OfSHJi820MtO/+G1nK0NFYwhpoOyAsxxQENSjei0Hpm0gTF7znzE7sKncHCWzfcvkNvbGkobRcig9mEK/4=
+  bucket: reactive-stopwatch
+  local-dir: dist
+  acl: public_read
   on:
     repo: Vboivin/reactiveStopwatch
+  region: us-east-2
+  default_text_charset: 'utf-8'
+after_deploy: 'rm dist/index.html hourglass.svg'

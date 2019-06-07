@@ -4,13 +4,12 @@
   "description": "Stopwatch using React",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --port $PORT --mode production",
-    "start-dev": "webpack-dev-server --port 8000 --open --mode development",
+    "start": "webpack-dev-server 8000 --open --mode development",
     "create-doc": "jsdoc -r --configure .jsdoc.json src --verbose",
     "tests": "jest --runInBand",
     "build-dev": "webpack --mode development",
     "build-prod": "webpack --mode production",
-    "push-prod": "npm run build-prod && npm run create-doc && git add . && git commit -m \"pre-deploy push\" && git push"
+    "push-prod": "npm run build-prod && npm run create-doc && git add . && git commit -m \"pre-deploy push\" && git push && cp index.html hourglass.svg -t ../dist/"
   },
   "repository": {
     "type": "git",
@@ -30,26 +29,26 @@
   },
   "homepage": "https://github.com/qiqi0725/reactiveStopwatch#readme",
   "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.33.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.7.0"
-  },
-  "devDependencies": {
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
     "jest": "^24.8.0",
     "jsdoc": "^3.6.2",
     "jsdom": "^15.1.1",
-    "tui-jsdoc-template": "^1.2.2"
+    "style-loader": "^0.23.1",
+    "tui-jsdoc-template": "^1.2.2",
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.7.0"
   }
 }
