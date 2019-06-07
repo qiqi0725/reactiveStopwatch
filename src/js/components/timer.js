@@ -37,8 +37,9 @@ export default class Timer extends React.Component {
         this.state = {
             time: '00:00:00.00',
             lapTime: '00:00:00.00',
-            lapInitTime: new Date(),
-            initTime: new Date(),
+            lapInitTime: null,
+            pauseTime: null,
+            initTime: null,
             lapCounter: 1,
             timer: null,
             lapTimer: null,
@@ -105,9 +106,10 @@ export default class Timer extends React.Component {
     startTime() {
         // hide start, show stop
         this.setState({
+            initTime: this.state.initTime === null ? new Date() : new Date() + this.state.initTime,
             timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
-            }, 10),
+            }, 76),
             buttonManager: <ButtonManager scenario={1} functions={this.functions} />,
         });
     }
@@ -145,6 +147,7 @@ export default class Timer extends React.Component {
         clearInterval(this.state.lapTimer);
         this.setState({
             buttonManager: <ButtonManager scenario={2} functions={this.functions} />,
+            pauseTime: new Date(),
         });
     }
 
@@ -160,7 +163,9 @@ export default class Timer extends React.Component {
         this.setState({
             time: '00:00:00.00',
             lapTime: '00:00:00.00',
-            initTime: new Date(),
+            initTime: null,
+            initLapTime: null,
+            pauseTime: null,
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />
         });
     }
