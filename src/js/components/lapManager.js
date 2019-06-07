@@ -5,28 +5,24 @@ export default class LapManager extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // const green = "#15b222";
-        // const red = "#ff2d2d";
-
         this.state = {
             // lapCounter: props.counter,
             // lapTime: props.lapTime,
-            max: {},
-            min: {},
+            // max: {key: 0, value: 0},
+            // min: {key: 0, value: 0},
             allLaps: null,
+            killAllLaps: false,
         }
-        this.finalDisplay = [];
+        this.maxTime = 0;
+        this.minTime = 99999;
     }
 
-    componentWillReceiveProps(){
+    componentWillReceiveProps() {
         this.setState({
             allLaps: this.props.allLaps,
+            killAllLaps: this.props.killAllLaps
         });
-        this.updateLaps();
-        this.setState({
-            allLaps: null,
-        });
+        console.log("DO YOU WANT TO CLEAR ALL LAPS? " + this.state.killAllLaps);
     }
 
     componentDidMount() {
@@ -41,26 +37,35 @@ export default class LapManager extends React.Component {
     updateMinMax() {
         if (allLaps().getValue(this.state.lapCounter) < allLaps.getValue(this.state.minLapID)) {
             this.setState({
-                min: {lapCounter: this.state.lapTime},
+                min: { lapCounter: this.state.lapTime },
             });
         }
         else if (allLaps().getValue(this.state.lapCounter) > allLaps.getValue(this.state.maxLapID)) {
             this.setState({
-                max: {lapCounter: this.state.lapTime},
+                max: { lapCounter: this.state.lapTime },
             })
         }
     }
 
     // display all laps
     updateLaps() {
+        const finalDisplay = [];
 
-        if (!this.state.allLaps){
-            return null
+        if (!this.state.allLaps) {
+            return null;
         }
-
-        // updateAllLaps();
         for (const [key, value] of Object.entries(this.state.allLaps).reverse()) {
-            this.finalDisplay.push(<div id={`lapBlock${key}`}>
+            let lapStyle = { color: "white" };
+            if (value <= this.minTime) {
+                lapStyle = { color: "green" }
+                this.minTime = value;
+            }
+            else if (value >= this.maxTime) {
+                lapStyle = { color: "red" }
+                this.maxTime = value;
+            }
+
+            finalDisplay.push(<div id={`lapBlock${key}`} style={lapStyle}>
                 <span id={`lap${key}`}>
                     {`Lap ${pad(key)}`}
                 </span>
@@ -70,10 +75,16 @@ export default class LapManager extends React.Component {
 
             </div>);
         }
+
+        if (this.state.killAllLaps) {
+            this.allLaps = [];
+            console.log("I KILLED ALL LAPS" + this.allLaps);
+        }
+        return finalDisplay;
     }
 
     render() {
-       
-        return this.finalDisplay;
+        // return this.finalDisplay;
+        return this.updateLaps();
     }
 }
