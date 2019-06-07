@@ -8,13 +8,10 @@
 ```sh
 npm update
 ```
-* Run start script
+* Run development start script
 ```sh
-npm run start
+npm run start-dev
 ```
-
-**Dependencies**
-* Npm
 
 **Contributors**
 
@@ -26,25 +23,8 @@ npm run start
 * Babel
 * Webpack
 * Jest
+* Enzyme
 * Eslint (airbnb settings)
-
-**Language**
-
-* JavaScript
-
-**Library**
-
-* React
-
-**Package Manager**
-
-* Npm
-
-**Cloud Deployment Platform**
-
-* Heroku
-
-**CI-CD**
-
-* Travis-CI
+* Travis CI
 * Github
+* Heroku
