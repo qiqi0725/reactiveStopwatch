@@ -1,5 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const ROOT_PATH = path.resolve(__dirname);
+const SRC_PATH = path.resolve(ROOT_PATH, 'src');
 
 module.exports = {
     entry: './src/index.js',
@@ -19,20 +24,26 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.css'],
+        alias: {
+            'react-dom': '@hot-loader/react-dom'
+        },
     },
     output: {
-        path: path.resolve(__dirname, 'public/'),
-        publicPath: '/path/',
+        path: path.resolve(__dirname, 'dist/'),
         filename: 'bundledStopwatch.js',
     },
     devServer: {
-        contentBase: path.join(__dirname, 'public/'),
-        publicPath: 'http://localhost:8000/dist',
-        port: 8000,
+        port: 8080,
         hot: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.join(SRC_PATH, 'index.html')
+        }),
+        new CopyPlugin([
+            { from: path.resolve(ROOT_PATH, 'public'), to: 'public' }
+        ])
     ],
 };
