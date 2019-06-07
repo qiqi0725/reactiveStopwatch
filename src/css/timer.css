@@ -9,12 +9,14 @@
     align-items: center;
 }
 
+
 /*  LAPS DISPLAY  */
 
 #laps {
     color: white;
     padding: 2em;
     font-size: 3vh;
+    height: 40vh;
     overflow-y: auto;
 }
 

@@ -9,21 +9,24 @@ export default class LapManager extends React.Component {
         // const green = "#15b222";
         // const red = "#ff2d2d";
 
-        // let allLaps = [];
-
         this.state = {
             // lapCounter: props.counter,
             // lapTime: props.lapTime,
             max: {},
             min: {},
-            allLaps: props.allLaps
+            allLaps: null,
         }
-        // this.allLaps = [];
-
+        this.finalDisplay = [];
     }
 
     componentWillReceiveProps(){
-        console.log('reached');
+        this.setState({
+            allLaps: this.props.allLaps,
+        });
+        this.updateLaps();
+        this.setState({
+            allLaps: null,
+        });
     }
 
     componentDidMount() {
@@ -48,28 +51,16 @@ export default class LapManager extends React.Component {
         }
     }
 
-    updateAllLaps() {
-        if (this.state.allLaps && this.state.lapCounter != this.state.prevLapCounter) {
-            this.allLaps.push({
-                key: this.state.lapCounter,
-                value: this.state.lapTime
-            });
-        }
-        
-    }
-
     // display all laps
-    displayAllLaps() {
+    updateLaps() {
 
         if (!this.state.allLaps){
             return null
         }
-        // updateAllLaps();
-        let finalDisplay = [];
-        for (const [key, value] of Object.entries(this.allLaps)) {
-            console.log("@@@@@@" + value);
 
-            finalDisplay.push(<div id={`lapBlock${key}`}>
+        // updateAllLaps();
+        for (const [key, value] of Object.entries(this.state.allLaps).reverse()) {
+            this.finalDisplay.push(<div id={`lapBlock${key}`}>
                 <span id={`lap${key}`}>
                     {`Lap ${pad(key)}`}
                 </span>
@@ -79,33 +70,10 @@ export default class LapManager extends React.Component {
 
             </div>);
         }
-        // let all = this.allLaps.map((item, key) =>
-        //     <div id={`lapBlock${key}`}>
-        //         <span id={`lap${key}`}>
-        //             {`Lap ${pad(key)}`}
-        //         </span>
-        //         <span id={`timeLap${key}`}>
-        //             {(item)}
-        //         </span>
-        //     </div>
-        // );
-        return finalDisplay;
     }
 
     render() {
        
-        // return (
-        //     // <div id={`lapBlock${this.lapCounter}`}>
-        //     //     <span id={`lap${this.lapCounter}`}>
-        //     //         {`Lap ${pad(this.lapCounter)}`}
-        //     //     </span>
-        //     //     <span id={`timeLap${this.lapCounter}`}>
-        //     //         {(this.lapTime)}
-        //     //     </span>
-        //     // </div>
-        //     this.displayAllLaps()
-        // );
-        this.updateAllLaps();
-        return this.displayAllLaps();
+        return this.finalDisplay;
     }
 }
