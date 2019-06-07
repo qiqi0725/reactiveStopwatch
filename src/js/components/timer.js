@@ -44,13 +44,11 @@ export default class Timer extends React.Component {
             initTime: null,
             lapCounter: 1,
             timer: null,
-            firstLap: null,
             lapTimer: null,
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
             lapManager: <LapManager allLaps={null} killAllLaps={false} />
         };
         this.allLaps = {};
-        this.firstLapTimer = null;
     }
 
     componentDidMount() {
@@ -81,24 +79,19 @@ export default class Timer extends React.Component {
         this.setState({
             timeMs: newTimeMs,
             time: millisecondsToString(newTimeMs),
-            // lapTime: this.state.lapCounter === 1 ? millisecondsToString(newTimeMs) : this.state.lapTime,
-            // lapTimeMs: this.state.lapCounter === 1 ? this.state.lapTimeMs : newTimeMs,
         });
 
         if (this.state.lapCounter === 1) {
             this.setState({
                 lapTimeMs: newTimeMs,
                 lapTime: millisecondsToString(newTimeMs),
-                firstLap: [this.state.lapCounter, this.state.lapTime],
             });
-            console.log("YOOOOOOO FIRST LAP: " + this.state.firstLap);
         }
     }
 
     // Updates time of ongoing lap timer
     updateLapTime(newTimeMs) {
         this.setState({
-            // lapTime: millisecondsToString(newTimeMs),
             lapTime: newTimeMs
         })
     }
@@ -116,7 +109,7 @@ export default class Timer extends React.Component {
             initTime: this.state.timeMs ? new Date() - this.state.timeMs : new Date(),
             timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
-            }, 76),
+            }, 1),
             buttonManager: <ButtonManager scenario={1} functions={this.functions} />,
         });
     }
@@ -158,7 +151,6 @@ export default class Timer extends React.Component {
             lapCounter: 1,
             buttonManager: <ButtonManager scenario={0} functions={this.functions} />,
             lapManager: <LapManager allLaps={null} killAllLaps={true} />,
-
         });
         this.allLaps = {};
     }
@@ -183,34 +175,31 @@ export default class Timer extends React.Component {
      */
     startLapTime(isNewLap) {
         // clear previous lap timer
-        if (this.state.lapCounter >= 1 && this.state.lapCounter && isNewLap) {
-            console.log(`ffffffff ${this.state.lapCounter}`);
-            clearInterval(this.state.lapTimer);
-            // this.setState({
-            //     firstLap: [this.state.lapCounter, this.state.lapTime],
-            //     lapCounter: this.state.lapCounter + 1,
-            // });
-        }
-        console.log("  THOSE ARE THE LAPS: " + this.state.firstLap);
-        if (this.state.lapCounter === 2){
-            this.allLaps[this.state.firstLap[0]] = this.state.firstLap[1];
-        }
-
+        // if (isNewLap && this.state.lapCounter !== 1) {
+        //     this.allLaps[this.state.lapCounter] = this.state.lapTime;
+        // }
         if (isNewLap) {
             this.allLaps[this.state.lapCounter] = this.state.lapTime;
+            clearInterval(this.state.lapTimer);
+        }  
+        if (this.state.lapCounter === 1){
+            clearInterval(this.state.timer);
             this.setState({
-                lapTimeMs: 0,
+                lapCounter: this.state.lapCounter + 1,
+                initTime: this.state.timeMs ? new Date() - this.state.timeMs : new Date(),
+                timer: setInterval(() => {
+                this.updateTime(new Date() - this.state.initTime);
+            }, 1),
+                lapManager: <LapManager allLaps={this.allLaps} killAllLaps={false} />,
             });
         }
 
-
-
         // calculate time for latest lap
         this.setState({
-            lapInitTime: this.state.lapTimeMs ? new Date() - this.state.lapTimeMs : new Date(),
+            lapInitTime: (!isNewLap) ? new Date() - this.state.lapTime : new Date(),
             lapTimer: setInterval(() => {
                 this.updateLapTime(new Date() - this.state.lapInitTime);
-            }, 76),
+            }, 1),
             lapCounter: isNewLap ? this.state.lapCounter + 1 : this.state.lapCounter,
             lapManager: <LapManager allLaps={this.allLaps} killAllLaps={false} />
         });

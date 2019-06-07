@@ -6,7 +6,7 @@ export default class LapManager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allLaps: null,
+            allLaps: props.allLaps,
             killAllLaps: false,
         }
         this.maxTime = 0;
@@ -28,20 +28,6 @@ export default class LapManager extends React.Component {
         console.error('Exception caught in the Lap Manager component');
     }
 
-    // keep track of fastest and slowest laps
-    updateMinMax() {
-        if (allLaps().getValue(this.state.lapCounter) < allLaps.getValue(this.state.minLapID)) {
-            this.setState({
-                min: { lapCounter: this.state.lapTime },
-            });
-        }
-        else if (allLaps().getValue(this.state.lapCounter) > allLaps.getValue(this.state.maxLapID)) {
-            this.setState({
-                max: { lapCounter: this.state.lapTime },
-            })
-        }
-    }
-
     // display all laps
     updateLaps() {
         const finalDisplay = [];
@@ -50,9 +36,6 @@ export default class LapManager extends React.Component {
             return null;
         }
         for (const [key, value] of Object.entries(this.state.allLaps).reverse()) {
-            // if(key == 1){
-            //     continue;
-            // }
             let lapStyle = { color: "white" };
             if (value <= this.minTime) {
                 lapStyle = { color: "green" }
@@ -68,7 +51,7 @@ export default class LapManager extends React.Component {
                     {`Lap ${pad(key)}`}
                 </span>
                 <span id={`timeLap${key}`}>
-                    {key === '1' ? value : millisecondsToString(value)}
+                    {key == 1 ? value : millisecondsToString(value)}
                 </span>
 
             </div>);
@@ -78,7 +61,6 @@ export default class LapManager extends React.Component {
             this.setState({
                 allLaps: [],
             });
-            console.log("I KILLED ALL LAPS" + this.allLaps);
         }
         return finalDisplay;
     }
