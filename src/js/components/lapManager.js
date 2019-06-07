@@ -5,24 +5,24 @@ export default class LapManager extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // const green = "#15b222";
-        // const red = "#ff2d2d";
-
-        // let allLaps = [];
-
         this.state = {
-            lapCounter: props.counter,
-            lapTime: props.lapTime,
-            max: {},
-            min: {},
+            // lapCounter: props.counter,
+            // lapTime: props.lapTime,
+            // max: {key: 0, value: 0},
+            // min: {key: 0, value: 0},
+            allLaps: null,
+            killAllLaps: false,
         }
-        this.allLaps = [];
-
+        this.maxTime = 0;
+        this.minTime = 99999;
     }
 
-    componentWillReceiveProps(){
-        console.log('reached');
+    componentWillReceiveProps() {
+        this.setState({
+            allLaps: this.props.allLaps,
+            killAllLaps: this.props.killAllLaps
+        });
+        console.log("DO YOU WANT TO CLEAR ALL LAPS? " + this.state.killAllLaps);
     }
 
     componentDidMount() {
@@ -37,34 +37,35 @@ export default class LapManager extends React.Component {
     updateMinMax() {
         if (allLaps().getValue(this.state.lapCounter) < allLaps.getValue(this.state.minLapID)) {
             this.setState({
-                min: {lapCounter: this.state.lapTime},
+                min: { lapCounter: this.state.lapTime },
             });
         }
         else if (allLaps().getValue(this.state.lapCounter) > allLaps.getValue(this.state.maxLapID)) {
             this.setState({
-                max: {lapCounter: this.state.lapTime},
+                max: { lapCounter: this.state.lapTime },
             })
         }
     }
 
-    updateAllLaps() {
-        if (this.state.lapCounter != this.state.prevLapCounter) {
-            this.allLaps.push({
-                key: this.state.lapCounter,
-                value: this.state.lapTime
-            });
-        }
-        
-    }
-
     // display all laps
-    displayAllLaps() {
-        updateAllLaps();
-        let finalDisplay = [];
-        for (const [key, value] of Object.entries(this.allLaps)) {
+    updateLaps() {
+        const finalDisplay = [];
 
+        if (!this.state.allLaps) {
+            return null;
+        }
+        for (const [key, value] of Object.entries(this.state.allLaps).reverse()) {
+            let lapStyle = { color: "white" };
+            if (value <= this.minTime) {
+                lapStyle = { color: "green" }
+                this.minTime = value;
+            }
+            else if (value >= this.maxTime) {
+                lapStyle = { color: "red" }
+                this.maxTime = value;
+            }
 
-            finalDisplay.push(<div id={`lapBlock${key}`}>
+            finalDisplay.push(<div id={`lapBlock${key}`} style={lapStyle}>
                 <span id={`lap${key}`}>
                     {`Lap ${pad(key)}`}
                 </span>
@@ -74,33 +75,16 @@ export default class LapManager extends React.Component {
 
             </div>);
         }
-        // let all = this.allLaps.map((item, key) =>
-        //     <div id={`lapBlock${key}`}>
-        //         <span id={`lap${key}`}>
-        //             {`Lap ${pad(key)}`}
-        //         </span>
-        //         <span id={`timeLap${key}`}>
-        //             {(item)}
-        //         </span>
-        //     </div>
-        // );
+
+        if (this.state.killAllLaps) {
+            this.allLaps = [];
+            console.log("I KILLED ALL LAPS" + this.allLaps);
+        }
         return finalDisplay;
     }
 
     render() {
-       
-        // return (
-        //     // <div id={`lapBlock${this.lapCounter}`}>
-        //     //     <span id={`lap${this.lapCounter}`}>
-        //     //         {`Lap ${pad(this.lapCounter)}`}
-        //     //     </span>
-        //     //     <span id={`timeLap${this.lapCounter}`}>
-        //     //         {(this.lapTime)}
-        //     //     </span>
-        //     // </div>
-        //     this.displayAllLaps()
-        // );
-        this.updateAllLaps();
-        return this.displayAllLaps();
+        // return this.finalDisplay;
+        return this.updateLaps();
     }
 }
