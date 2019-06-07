@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home | Adaptive React Stopwatch</title>
+    <title>Source: components/buttonManager.js | Adaptive React Stopwatch</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -42,64 +44,60 @@
 
 
     
-
-
-
-
-
-
-
-
-
-    
-
-
     <section>
-        <article class="readme"><h1><img src="https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png" alt="Adaptive Logo"> Adaptive Stopwatch React <img src="https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master" alt="Status Image"> <img src="https://david-dm.org/Vboivin/reactiveStopwatch.svg" alt="Dependencies Image"></h1>
-<h3>React web application imitating the look and feel of the iPhone stopwatch application. Other than React, no 3rd party libraries were allowed for JavaScript and for CSS.</h3>
-<h2><a href="https://reactive-stopwatch.s3.us-east-2.amazonaws.com/index.html">Stopwatch Demo</a> \ <a href="https://vboivin.github.io/reactiveStopwatch/">Documentation</a></h2>
-<h2>Contributors</h2>
-<ul>
-<li>Vincent Boivin</li>
-<li>Yu Qi Liu</li>
-</ul>
-<h2>Getting Started</h2>
-<ul>
-<li><a href="https://nodejs.org/en/download/">Install npm with Node</a></li>
-<li>Update local repo</li>
-</ul>
-<pre class="prettyprint source lang-sh"><code>npm update
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable class-methods-use-this */
+import React from 'react';
+
+import '../../css/button.css';
+
+/**
+ * @class
+ * @name ButtonManager
+ * @author Yu Qi Liu
+ * @author Vincent Boivin
+ * @classdesc Component in charge of buttons states and their side effects.
+ */
+export default class ButtonManager extends React.Component {
+    constructor(props) {
+        super(props);
+        this.buttons = {
+            startButton: &lt;button id='start' onClick={props.functions.start}>{'start'}&lt;/button>,
+            lapButtonDisabled: &lt;button id='lap' disabled={true}>{'lap'}&lt;/button>,
+            lapButtonEnabled: &lt;button id='lap' onClick={props.functions.lap}>{'lap'}&lt;/button>,
+            resetButton: &lt;button id='reset' onClick={props.functions.reset}>{'reset'}&lt;/button>,
+            stopButton: &lt;button id='stop' onClick={props.functions.stop}>{'stop'}&lt;/button>,
+            resumeButton: &lt;button id='resume' onClick={props.functions.resume}>{'resume'}&lt;/button>,
+        };
+    }
+
+    chooseButtons(b1, b2) {
+        return (&lt;div className='stopwatchButtons'>{b1}{b2}&lt;/div>);
+    }
+
+    renderScenario(num) {
+        switch (num) {
+        case 0:
+            // 0: lapDisabled start
+            return (this.chooseButtons(this.buttons.lapButtonDisabled, this.buttons.startButton));
+        case 1:
+            // 1: lapEnabled stop
+            return (this.chooseButtons(this.buttons.lapButtonEnabled, this.buttons.stopButton));
+        case 2:
+            // 2: reset resume
+            return (this.chooseButtons(this.buttons.resetButton, this.buttons.resumeButton));
+        default:
+            return null;
+        }
+    }
+
+    render() {
+        return this.renderScenario(this.props.scenario);
+    }
+}
 </code></pre>
-<ul>
-<li>Run development start script</li>
-</ul>
-<pre class="prettyprint source lang-sh"><code>npm run start
-</code></pre>
-<ul>
-<li>Your React application is now listening on port 8000</li>
-<li>Your default browser should display your application</li>
-</ul>
-<h2>Running Tests</h2>
-<ul>
-<li>Run tests with this command :</li>
-</ul>
-<pre class="prettyprint source lang-sh"><code>npm run tests
-</code></pre>
-<h2>Built With</h2>
-<ul>
-<li><a href="https://babeljs.io/">babel</a> - The transpiler</li>
-<li><a href="https://webpack.js.org/">webpack</a> - The bundler</li>
-<li><a href="https://eslint.org/">eslint</a> - The linter</li>
-<li><a href="https://jestjs.io/">jest</a> - The vanilla JS testing library</li>
-<li><a href="https://github.com/airbnb/enzyme">enzyme</a> - The React components testing library</li>
-<li><a href="https://github.com/jsdoc/jsdoc">jsdoc</a> - The documentation generator</li>
-<li><a href="https://travis-ci.org/">travis ci</a> - The continuous integration tool</li>
-<li><a href="https://aws.amazon.com/">aws</a> - The deployment platform</li>
-<li><a href="https://www.npmjs.com/">npm</a> - The package manager</li>
-</ul></article>
+        </article>
     </section>
-
-
 
 
 
@@ -116,7 +114,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'package:undefined_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

@@ -16,7 +16,7 @@ export default class ButtonManager extends React.Component {
         this.buttons = {
             startButton: <button id='start' onClick={props.functions.start}>{'start'}</button>,
             lapButtonDisabled: <button id='lap' disabled={true}>{'lap'}</button>,
-            lapButtonEnabled: <button id='lap' onClick={props.functions.startLapTime}>{'lap'}</button>,
+            lapButtonEnabled: <button id='lap' onClick={props.functions.lap}>{'lap'}</button>,
             resetButton: <button id='reset' onClick={props.functions.reset}>{'reset'}</button>,
             stopButton: <button id='stop' onClick={props.functions.stop}>{'stop'}</button>,
             resumeButton: <button id='resume' onClick={props.functions.resume}>{'resume'}</button>,

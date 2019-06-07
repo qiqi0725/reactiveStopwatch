@@ -1,50 +1,41 @@
-# ![alt text](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png "Logo Title Text 1") Adaptive Stopwatch React 
-## A stopwatch created with React
-## [Stopwatch Demo](https://www.google.com) | [Documentation](https://qiqi0725.github.io/reactiveStopwatch/index.html)
+# ![Adaptive Logo](https://weareadaptive.com/wp-content/themes/bh-core/assets/images/favicons/favicon-32x32.png) Adaptive Stopwatch React ![Status Image](https://travis-ci.org/Vboivin/reactiveStopwatch.svg?branch=master) ![Dependencies Image](https://david-dm.org/Vboivin/reactiveStopwatch.svg)
+### React web application imitating the look and feel of the iPhone stopwatch application. Other than React, no 3rd party libraries were allowed for JavaScript and for CSS.
 
-**To Run Locally**
+## [Stopwatch Demo](https://reactive-stopwatch.s3.us-east-2.amazonaws.com/index.html) \ [Documentation](https://vboivin.github.io/reactiveStopwatch/)
+
+## Contributors
+
+* Vincent Boivin
+* Yu Qi Liu 
+
+## Getting Started
+
 * [Install npm with Node](https://nodejs.org/en/download/)
 * Update local repo
 ```sh
 npm update
 ```
-* Run start script
+* Run development start script
 ```sh
 npm run start
 ```
+* Your React application is now listening on port 8000
+* Your default browser should display your application
 
-**Dependencies**
-* Npm
+## Running Tests
 
-**Contributors**
+* Run tests with this command : 
+```sh 
+npm run tests
+```
 
-* Vincent Boivin
-* Yu Qi Liu 
-
-**Toolchain**
-
-* Babel
-* Webpack
-* Jest
-* Eslint (airbnb settings)
-
-**Language**
-
-* JavaScript
-
-**Library**
-
-* React
-
-**Package Manager**
-
-* Npm
-
-**Cloud Deployment Platform**
-
-* Heroku
-
-**CI-CD**
-
-* Travis-CI
-* Github
+## Built With
+* [babel](https://babeljs.io/) - The transpiler
+* [webpack](https://webpack.js.org/) - The bundler
+* [eslint](https://eslint.org/) - The linter
+* [jest](https://jestjs.io/) - The vanilla JS testing library
+* [enzyme](https://github.com/airbnb/enzyme) - The React components testing library
+* [jsdoc](https://github.com/jsdoc/jsdoc) - The documentation generator
+* [travis ci](https://travis-ci.org/) - The continuous integration tool
+* [aws](https://aws.amazon.com/) - The deployment platform
+* [npm](https://www.npmjs.com/) - The package manager

@@ -34,7 +34,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="Button.html">Button</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Button_sub"></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#.resetTime">resetTime</a></li><li><a href="Timer.html#.resumeTime">resumeTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startTime">startTime</a></li><li><a href="Timer.html#.stopTime">stopTime</a></li><li><a href="Timer.html#.updateTime">updateTime</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#millisecondsToString">millisecondsToString</a></li><li><a href="global.html#pad">pad</a></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="ButtonManager.html">ButtonManager</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="ButtonManager_sub"></div></li><li><a href="Timer.html">Timer</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Timer_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Timer.html#.resetTime">resetTime</a></li><li><a href="Timer.html#.resumeTime">resumeTime</a></li><li><a href="Timer.html#.startLapTime">startLapTime</a></li><li><a href="Timer.html#.startTime">startTime</a></li><li><a href="Timer.html#.stopTime">stopTime</a></li><li><a href="Timer.html#.updateTime">updateTime</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#millisecondsToString">millisecondsToString</a></li><li><a href="global.html#pad">pad</a></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -46,10 +46,15 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react';
+            <pre class="prettyprint source linenums"><code>/* eslint-disable max-len */
+/* eslint-disable import/named */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable no-console */
+import React from 'react';
 
-import Button from './button';
-import {millisecondsToString, pad} from '../misc';
+import { millisecondsToString, pad } from '../misc';
+import ButtonManager from './buttonManager';
+import LapManager from './lapManager';
 
 import '../../css/timer.css';
 
@@ -59,7 +64,6 @@ import '../../css/timer.css';
  * @author Yu Qi Liu
  * @author Vincent Boivin
  * @classdesc Component used for lap timer and main timer
- * @property {array} buttons - Button components
  */
 export default class Timer extends React.Component {
     constructor(props) {
@@ -70,58 +74,45 @@ export default class Timer extends React.Component {
         this.stopTime = this.stopTime.bind(this);
         this.resetTime = this.resetTime.bind(this);
         this.resumeTime = this.resumeTime.bind(this);
-        this.buttons = {
-                startButton: &lt;Button
-                id='start'
-                name='Start'
-                bAction={this.startTime}
-                isDisabled={false} />,
-                lapButton: &lt;Button
-                id='lap'
-                name='Lap'
-                bAction={this.startLapTime}
-                isDisabled={true} />,
-                resetButton: &lt;Button
-                id='reset'
-                name='Reset'
-                bAction={this.resetTime}
-                isDisabled={false} />,
-                stopButton: &lt;Button
-                id='stop'
-                name='Stop'
-                bAction={this.stopTime}
-                isDisabled={false} />,
-                resumeButton: &lt;Button
-                id='resume'
-                name='Resume'
-                bAction={this.resumeTime}
-                isDisabled={false} /> 
-            };
+        this.functions = {
+            start: this.startTime,
+            stop: this.stopTime,
+            update: this.updateTime,
+            reset: this.resetTime,
+            resume: this.resumeTime,
+            lap: this.startLapTime,
+        };
         this.state = {
             time: '00:00:00.00',
-            lapTime : '00:00:00.00',
-            initTime: new Date(),
+            timeMs: 0,
+            lapTime: '00:00:00.00',
+            lapTimeMs: 0,
+            lapInitTime: null,
+            initTime: null,
             lapCounter: 1,
             timer: null,
             lapTimer: null,
-            displayedButtons: [this.buttons.startButton, this.buttons.lapButton],
-            };
+            buttonManager: &lt;ButtonManager scenario={0} functions={this.functions} />,
+            lapManager: &lt;LapManager counter={1} lapTime={0} />,
+        };
+        this.allLaps = [];
+        this.firstLapTimer = null;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log('Timer is mounted');
     }
 
-    componentDidCatch(){
-        console.error('Excetipn caught in the timer component');
+    componentDidCatch() {
+        console.error('Exception caught in the timer component');
     }
 
-    componentWillUnmount(){
-        if(this.timer){
-        clearInterval(this.timer);
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer);
         }
-        if(this.lapTimer){
-        clearInterval(this.lapTimer);
+        if (this.lapTimer) {
+            clearInterval(this.lapTimer);
         }
     }
 
@@ -129,14 +120,28 @@ export default class Timer extends React.Component {
      * @function
      * @memberof Timer
      * @name updateTime
-     * @param {Date} newTime
-     * Used to modify the time states 
+     * @param {Date} newTimeMs
+     * Updates time of main timer or lap timer
      */
-    updateTime(newTime) {
+    updateTime(newTimeMs) {
         this.setState({
-            time: millisecondsToString(newTime),
-            lapTime: millisecondsToString(newTime),
+            timeMs: newTimeMs,
+            time: millisecondsToString(newTimeMs),
         });
+
+        if(this.state.lapCounter === 1){
+            this.setState({
+                lapTimeMs: newTimeMs,
+                lapTime: millisecondsToString(newTimeMs),
+            });
+        }
+    }
+
+    // Updates time of ongoing lap timer
+    updateLapTime(newTimeMs){
+        this.setState({
+            lapTime: millisecondsToString(newTimeMs),
+        })
     }
 
     /**
@@ -148,22 +153,13 @@ export default class Timer extends React.Component {
     startTime() {
         // hide start, show stop
         this.setState({
-            displayedButtons: [this.buttons.lapButton, this.buttons.stopButton],
-            timer: setInterval(() =>{
+            initTime: this.state.timeMs ? new Date() - this.state.timeMs : new Date(),
+            timer: setInterval(() => {
                 this.updateTime(new Date() - this.state.initTime);
-            }, 10),
+            }, 76),
+            buttonManager: &lt;ButtonManager scenario={1} functions={this.functions} />,
+            
         });
-    }
-
-    /**
-     * @function
-     * @memberof Timer
-     * @name startLapTime
-     * @description Start lap interval
-     * @param {*} currentLap 
-     */
-    startLapTime(currentLap) {
-
     }
 
     /**
@@ -174,14 +170,12 @@ export default class Timer extends React.Component {
      */
     stopTime() {
         // hide stop, show reset resume
-        Button.setState({
-            isStopButtonVisible: false,
-            isResetButtonVisible: true,
-            isResumeButtonVisible: true,
-        });
-
         clearInterval(this.state.timer);
         clearInterval(this.state.lapTimer);
+        this.setState({
+            buttonManager: &lt;ButtonManager scenario={2} functions={this.functions} />,
+            // lapInitTime: new Date()
+        });
     }
 
     /**
@@ -192,15 +186,18 @@ export default class Timer extends React.Component {
      */
     resetTime() {
         // hide reset resume, show lap start
-        Button.setState({
-            isResetButtonVisible: false,
-            isResumeButtonVisible: false,
-            isLapButtonVisible: true,
-            isStartButtonVisible: true,
-        });
+        clearInterval(this.state.timer);
+        clearInterval(this.state.lapTimer);
         this.setState({
             time: '00:00:00.00',
-            initTime: new Date(),
+            lapTime: '00:00:00.00',
+            timeMs: 0,
+            lapTimeMs: 0,
+            initTime: null,
+            initLapTime: null,
+            lapCounter: 1,
+            buttonManager: &lt;ButtonManager scenario={0} functions={this.functions} />,
+            lapManager: &lt;LapManager lapCounter={1} lapTime={0} />,
         });
     }
 
@@ -212,14 +209,45 @@ export default class Timer extends React.Component {
      */
     resumeTime() {
         // hide resume reset, show start lap
-        Button.setState({
-            isResumeButtonVisible: false,
-            isResetButtonVisible: false,
-            isStartButtonVisible: true,
-            isLapButtonVisible: true,
+        this.startTime();
+        this.startLapTime(false);
+    }
+
+    /**
+     * @function
+     * @memberof Timer
+     * @name startLapTime
+     * @description Start lap interval
+     */
+    startLapTime(isNewLap) {
+        // clear previous lap timer
+        if (this.state.lapCounter >= 1 &amp;&amp; this.state.lapCounter &amp;&amp; isNewLap) {
+            clearInterval(this.state.lapTimer);
+        } 
+
+        if(isNewLap){
+            this.setState({
+                lapTimeMs: 0,
+            });
+        }
+
+        // calculate time for latest lap
+        this.setState({
+            lapInitTime: this.state.lapTimeMs ? new Date() - this.state.lapTimeMs : new Date(),
+            lapTimer: setInterval(() => {
+                this.updateLapTime(new Date() - this.state.lapInitTime);
+            }, 76),
+            lapCounter: isNewLap ? this.state.lapCounter + 1 : this.state.lapCounter,
+            lapManager: &lt;LapManager lapCounter={this.state.lapCounter} lapTime={this.state.lapTime} />,
         });
 
-        this.startTime();
+        if(isNewLap){
+            this.allLaps.push({
+                id: this.state.lapCounter,
+                value: this.state.lapTime,
+            });
+        }
+        console.log(this.allLaps);
     }
 
     render() {
@@ -228,9 +256,7 @@ export default class Timer extends React.Component {
                 &lt;div id='time'>
                     {(this.state.time)}
                 &lt;/div>
-                &lt;div className="stopwatchButtons">
-                    {this.state.displayedButtons}
-                &lt;/div>
+                {this.state.buttonManager}
                 &lt;div id='laps'>
                     &lt;div id={`lapBlock${this.state.lapCounter}`}>
                         &lt;span id={`lap${this.state.lapCounter}`}>

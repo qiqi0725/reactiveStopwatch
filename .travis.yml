@@ -1,9 +1,20 @@
 language: node_js
 node_js:
-  - "10"
-cache: npm
+- '10'
+
 before_script:
-  - npm install jest
-  - npm install react
-  - npm install jsdom
-script: npm run test
+- npm i jest react jsdom
+script: npm run tests
+
+deploy:
+  provider: s3
+  access_key_id: AKIAIR6AIIUVGSTVU7BA
+  secret_access_key:
+    secure: Lswz1MU26djWj+KBpRSbaC7sZ92CkNa3yrNs7J/R8jI5ZReHFOa20sak+4djF/YL1RUaZQmcqy/sbQPqRVYifE5vWuLUjI8GbjSVfcUHelvbgMSRW8vtyW1G5rg5V9n264gaZ7f0hOeCWxlb22S7Jrqpb8FXCRwGXRbcP1slNYF0bEgrXZC5DzkmJ9vhTb3K7MCNi22EpjcITeYNMwJbm/exU4oWaR7Q/q2hGynNpe8a3Y2YKxiBHQb5miGCoHzaXcNPVSoKBuy63X2iLr88SuQPbZE8MU13o3fmCtZh42MlL1aUrox+AeWmEgxzKy7h056AtTvI6gn2ZeScSHOIOxf+rr7LlPRvwYXQ5dGKsvuHZiBMk/oKatTMYd3sglkj8Z+v7IFLLzqHskMbZsZbWM9sSSTiXuSJUiOLFvSaVhA5gtA1lqbchGB+4QuHiFC0LxuBlvUVi+RoInbtXk+qNN9tHT2r6dSK4TpDzfEkZgMObdgjvIz68f42p7rGVzXAHckL6FDB8YppUqhbVfKd5tu+Jw2Mg7+xuT4i7aElQ25Eq8h2AlsitakYWBQCPFnh6Xv2C5Mht7SAncdmG1x4IZN54OfSHJi820MtO/+G1nK0NFYwhpoOyAsxxQENSjei0Hpm0gTF7znzE7sKncHCWzfcvkNvbGkobRcig9mEK/4=
+  bucket: reactive-stopwatch
+  local-dir: dist
+  acl: public_read
+  on:
+    repo: Vboivin/reactiveStopwatch
+  region: us-east-2
+  default_text_charset: 'utf-8'
